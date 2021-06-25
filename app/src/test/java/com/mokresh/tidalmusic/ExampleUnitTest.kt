@@ -1,4 +1,4 @@
-package com.cokresh.tidalmusic
+package com.mokresh.tidalmusic
 
 import org.junit.Test
 
