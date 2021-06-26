@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mokresh.tidalmusic.databinding.ItemArtistBinding
 import com.mokresh.tidalmusic.artist.data.models.GetArtistsData
-import javax.inject.Inject
 
-class ArtistsAdapter @Inject constructor() :
+class ArtistsAdapter :
     PagingDataAdapter<GetArtistsData, ArtistsAdapter.ArtistsViewHolder>(ArtistsComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =

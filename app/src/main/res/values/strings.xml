@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TidalMusic</string>
     <string name="retry">Retry</string>
+    <string name="artists">Artists</string>
 </resources>

@@ -12,15 +12,13 @@ class ArtistsViewModel(
     private val artistsRepository: ArtistsRepository,
 
     ) : BaseViewModel() {
-    private lateinit var _artistsFlow: Flow<PagingData<GetArtistsData>>
-    val artistsFlow: Flow<PagingData<GetArtistsData>>
-        get() = _artistsFlow
+    var artistsFlow: Flow<PagingData<GetArtistsData>>? = null
 
 
     fun getArtists(query: String) = launchPagingAsync({
         artistsRepository.getArtists(query).cachedIn(viewModelScope)
     }, {
-        _artistsFlow = it
+        artistsFlow = it
     })
 
 }

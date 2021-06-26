@@ -7,21 +7,33 @@ import com.mokresh.tidalmusic.artist.ArtistsViewModel
 import com.mokresh.tidalmusic.base.BaseActivity
 import com.mokresh.tidalmusic.base.PagingLoadStateAdapter
 import com.mokresh.tidalmusic.databinding.ActivityMainBinding
-import kotlinx.coroutines.flow.collect
+import com.mokresh.tidalmusic.utils.DebouncingQueryTextListener
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
+
 
 class MainActivity : BaseActivity<ActivityMainBinding,
         ArtistsViewModel>(R.layout.activity_main, ArtistsViewModel::class) {
-    lateinit var artistsAdapter: ArtistsAdapter
+    private val artistsAdapter = ArtistsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        artistsAdapter = ArtistsAdapter()
+        binding.searchView.setOnQueryTextListener(
+            DebouncingQueryTextListener(
+                this@MainActivity.lifecycle
+            ) { newText ->
+                newText?.let {
+                    if (newText.isNotEmpty()) {
+                        newText.let { viewModel.getArtists(it) }
+                        initArtistsRecyclerView()
 
-        viewModel.getArtists("emin")
+                    }
+                }
+            }
+        )
+    }
+
+    private fun initArtistsRecyclerView() {
         with(artistsAdapter) {
             binding.swipeRefresh.setOnRefreshListener { refresh() }
             binding.rvArtists.adapter = withLoadStateHeaderAndFooter(
@@ -30,7 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding,
             )
             with(viewModel) {
                 launchOnLifecycleScope {
-                    artistsFlow.collectLatest { submitData(it) }
+                    artistsFlow?.collectLatest { submitData(it) }
                 }
                 launchOnLifecycleScope {
                     loadStateFlow.collectLatest {
@@ -41,8 +53,6 @@ class MainActivity : BaseActivity<ActivityMainBinding,
             }
         }
 
-
     }
-
 
 }
