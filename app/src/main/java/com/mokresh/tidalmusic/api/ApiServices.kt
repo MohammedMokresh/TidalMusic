@@ -3,7 +3,8 @@ package com.mokresh.tidalmusic.api
 
 import android.content.Context
 import com.mokresh.tidalmusic.BuildConfig
-import com.mokresh.tidalmusic.artist.data.models.GetArtistsResponseBody
+import com.mokresh.tidalmusic.albums.model.AlbumsResponseBody
+import com.mokresh.tidalmusic.artist.models.ArtistsResponseBody
 import com.mokresh.tidalmusic.utils.NetworkConnectionInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,7 +18,11 @@ import java.util.concurrent.TimeUnit
 interface ApiServices {
 
     @GET("search/artist")
-    suspend fun getArtist(@Query("q") query: String, @Query("index") index: Int): Response<GetArtistsResponseBody>
+    suspend fun getArtist(@Query("q") query: String, @Query("index") index: Int): Response<ArtistsResponseBody>
+
+
+    @GET("search/album")
+    suspend fun getAlbums(@Query("q") query: String, @Query("index") index: Int): Response<AlbumsResponseBody>
 
 
     companion object {

@@ -1,11 +1,11 @@
-package com.mokresh.tidalmusic.artist.data.models
+package com.mokresh.tidalmusic.artist.models
 
 
 import com.google.gson.annotations.SerializedName
 
-data class GetArtistsResponseBody(
+data class ArtistsResponseBody(
     @SerializedName("data")
-    val getArtistsData: List<GetArtistsData>?,
+    val artistsData: List<ArtistsData>?,
     @SerializedName("next")
     val next: String?,
     @SerializedName("total")

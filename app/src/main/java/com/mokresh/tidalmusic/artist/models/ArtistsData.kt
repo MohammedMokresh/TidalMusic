@@ -1,9 +1,9 @@
-package com.mokresh.tidalmusic.artist.data.models
+package com.mokresh.tidalmusic.artist.models
 
 
 import com.google.gson.annotations.SerializedName
 
-data class GetArtistsData(
+data class ArtistsData(
     @SerializedName("id")
     val id: String,
 
@@ -15,6 +15,5 @@ data class GetArtistsData(
 
     @SerializedName("type")
     val type: String?,
-
 
     )

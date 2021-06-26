@@ -1,19 +1,19 @@
-package com.mokresh.tidalmusic.artist.data
+package com.mokresh.tidalmusic.albums
 
 import android.net.Uri
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.mokresh.tidalmusic.albums.model.AlbumsData
 import com.mokresh.tidalmusic.api.ApiServices
-import com.mokresh.tidalmusic.artist.models.ArtistsData
 
-class ArtistsPagingDataSource(private val service: ApiServices, private val query: String) :
-    PagingSource<Int, ArtistsData>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArtistsData> {
+class AlbumsPagingDataSource(private val service: ApiServices, private val query: String) :
+    PagingSource<Int, AlbumsData>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, AlbumsData> {
         val pageNumber = params.key ?: 1
         return try {
-            val response = service.getArtist(query, pageNumber)
+            val response = service.getAlbums(query, pageNumber)
             val pagedResponse = response.body()
-            val data = pagedResponse?.artistsData
+            val data = pagedResponse?.albumsData
 
             var nextPageNumber: Int? = null
             if (!pagedResponse?.next.isNullOrEmpty()) {
@@ -32,5 +32,5 @@ class ArtistsPagingDataSource(private val service: ApiServices, private val quer
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, ArtistsData>): Int = 1
+    override fun getRefreshKey(state: PagingState<Int, AlbumsData>): Int = 1
 }

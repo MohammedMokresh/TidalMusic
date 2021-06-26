@@ -11,6 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.mokresh.tidalmusic.ext.observe
 import com.mokresh.tidalmusic.BR
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -105,6 +106,11 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     override fun setMenuVisibility(visible: Boolean) {
         isFragmentVisible = visible
         super.setMenuVisibility(visible)
+    }
+    fun launchOnLifecycleScope(execute: suspend () -> Unit) {
+        this.lifecycleScope.launchWhenCreated {
+            execute()
+        }
     }
 
 }

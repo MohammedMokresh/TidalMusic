@@ -8,9 +8,8 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.lifecycleScope
-import com.mokresh.tidalmusic.ext.observe
 import com.mokresh.tidalmusic.BR
+import com.mokresh.tidalmusic.ext.observe
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 
@@ -85,10 +84,5 @@ abstract class BaseActivity<B : ViewDataBinding, out VM : BaseViewModel>(
         isActivityPaused = false
     }
 
-    fun launchOnLifecycleScope(execute: suspend () -> Unit) {
-        this.lifecycleScope.launchWhenCreated {
-            execute()
-        }
-    }
 
 }
