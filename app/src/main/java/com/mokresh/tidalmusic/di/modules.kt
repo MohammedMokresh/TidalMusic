@@ -1,6 +1,7 @@
 package com.mokresh.tidalmusic.di
 
 
+import com.mokresh.tidalmusic.albums.AlbumsViewModel
 import com.mokresh.tidalmusic.api.ApiServices
 import com.mokresh.tidalmusic.artist.data.ArtistsViewModel
 import com.mokresh.tidalmusic.artist.data.ListsRepository
@@ -20,6 +21,7 @@ val repositoryModule by lazy {
 val viewModelModule by lazy {
     module {
         viewModel { ArtistsViewModel(get()) }
+        viewModel { AlbumsViewModel(get()) }
 
     }
 }

@@ -15,7 +15,7 @@ class AlbumsViewModel(
     var albumsFlow: Flow<PagingData<AlbumsData>>? = null
 
 
-    fun getArtists(query: String) = launchPagingAsync({
+    fun getAlbums(query: String) = launchPagingAsync({
         listsRepository.getAlbums(query).cachedIn(viewModelScope)
     }, {
         albumsFlow = it

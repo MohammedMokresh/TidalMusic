@@ -4,16 +4,20 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+                name="clickListener"
+                type="com.mokresh.tidalmusic.base.OnClickListener"/>
 
         <variable
                 name="item"
-                type="com.mokresh.tidalmusic.artist.data.models.ArtistsData"/>
+                type="com.mokresh.tidalmusic.artist.models.ArtistsData"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:paddingTop="16dp"
+            android:onClick="@{()->clickListener.onItemClick(item)}"
             android:paddingBottom="16dp">
 
         <ImageView
