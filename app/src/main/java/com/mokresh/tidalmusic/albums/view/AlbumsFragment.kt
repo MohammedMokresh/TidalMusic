@@ -1,15 +1,14 @@
-package com.mokresh.tidalmusic.albums
+package com.mokresh.tidalmusic.albums.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.mokresh.tidalmusic.R
-import com.mokresh.tidalmusic.albums.model.AlbumsData
-import com.mokresh.tidalmusic.artist.view.ArtistsFragmentDirections
+import com.mokresh.tidalmusic.albums.AlbumsFragmentArgs
+import com.mokresh.tidalmusic.albums.AlbumsFragmentDirections
+import com.mokresh.tidalmusic.albums.data.AlbumsViewModel
 import com.mokresh.tidalmusic.base.BaseFragment
-import com.mokresh.tidalmusic.base.OnClickListener
 import com.mokresh.tidalmusic.base.PagingLoadStateAdapter
 import com.mokresh.tidalmusic.databinding.FragmentAlbumsBinding
 import com.mokresh.tidalmusic.utils.Constants
@@ -44,16 +43,10 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
                 header = PagingLoadStateAdapter(this),
                 footer = PagingLoadStateAdapter(this)
             )
-            with(viewModel) {
-                launchOnLifecycleScope {
-                    albumsFlow?.collectLatest { submitData(it) }
+            launchOnLifecycleScope {
+                loadStateFlow.collectLatest {
+                    binding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
                 }
-                launchOnLifecycleScope {
-                    loadStateFlow.collectLatest {
-                        binding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
-                    }
-                }
-
             }
         }
 
@@ -68,6 +61,12 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
                 directions?.let { findNavController().navigate(it) }
 
             }
+            is UIEvent.RenderAlbumsList -> {
+                launchOnLifecycleScope {
+                    albumsAdapter.submitData(event.albumsData)
+                }
+            }
+
         }
     }
 

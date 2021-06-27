@@ -1,21 +1,19 @@
-package com.mokresh.tidalmusic.artist.data
+package com.mokresh.tidalmusic.api
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.mokresh.tidalmusic.albums.model.AlbumsData
-import com.mokresh.tidalmusic.albums.AlbumsPagingDataSource
-import com.mokresh.tidalmusic.albums.model.AlbumsResponseBody
-import com.mokresh.tidalmusic.api.ApiServices
+import com.mokresh.tidalmusic.albums.data.AlbumsPagingDataSource
 import com.mokresh.tidalmusic.api.remote.NetworkResponse
+import com.mokresh.tidalmusic.artist.data.ArtistsPagingDataSource
 import com.mokresh.tidalmusic.artist.models.ArtistsData
-import com.mokresh.tidalmusic.model.ErrorBody
-import com.mokresh.tidalmusic.tracks.TracksResponseBody
+import com.mokresh.tidalmusic.base.model.ErrorBody
+import com.mokresh.tidalmusic.tracks.model.TracksResponseBody
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import retrofit2.Response
 
 class ListsRepository(
     private val service: ApiServices,

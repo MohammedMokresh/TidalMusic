@@ -1,4 +1,4 @@
-package com.mokresh.tidalmusic.albums
+package com.mokresh.tidalmusic.albums.view
 
 import com.mokresh.tidalmusic.R
 import com.mokresh.tidalmusic.albums.model.AlbumsData

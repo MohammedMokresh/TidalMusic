@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
-    var progressLiveEvent = SingleLiveEvent<Boolean>()
     var errorMessage = SingleLiveEvent<String>()
 
     inline fun <T> launchPagingAsync(

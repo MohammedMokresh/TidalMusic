@@ -3,7 +3,7 @@ package com.mokresh.tidalmusic.utils
 import androidx.paging.PagingData
 import com.mokresh.tidalmusic.albums.model.AlbumsData
 import com.mokresh.tidalmusic.artist.models.ArtistsData
-import com.mokresh.tidalmusic.tracks.TracksData
+import com.mokresh.tidalmusic.tracks.model.TracksData
 
 
 abstract class UIEvent {
@@ -14,6 +14,8 @@ abstract class UIEvent {
     data class RenderTracksList(val tracksData: ArrayList<TracksData>?) : UIEvent()
 
     data class RenderArtistsList(val artistsData: PagingData<ArtistsData>) : UIEvent()
+
+    data class RenderAlbumsList(val albumsData: PagingData<AlbumsData>) : UIEvent()
 
     object OnBackPressed : UIEvent()
 

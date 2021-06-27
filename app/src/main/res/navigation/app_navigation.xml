@@ -19,7 +19,7 @@
     </fragment>
     <fragment
             android:id="@+id/albumsFragment"
-            android:name="com.mokresh.tidalmusic.albums.AlbumsFragment"
+            android:name="com.mokresh.tidalmusic.albums.view.AlbumsFragment"
             android:label="fragment_albums"
             tools:layout="@layout/fragment_albums">
         <argument
@@ -39,7 +39,7 @@
                 app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment android:id="@+id/tracksFragment"
-              android:name="com.mokresh.tidalmusic.tracks.TracksFragment"
+              android:name="com.mokresh.tidalmusic.tracks.view.TracksFragment"
               android:label="TracksFragment">
 
         <action

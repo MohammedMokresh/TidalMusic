@@ -45,11 +45,6 @@ abstract class BaseActivity<B : ViewDataBinding, out VM : BaseViewModel>(
             binding.setVariable(BR.vm, viewModel)
 
             with(viewModel) {
-                observe(progressLiveEvent) { show ->
-                    if (show) showProgress()
-                    else hideProgress()
-                }
-
                 observe(errorMessage) { msg ->
                     Toast.makeText(this@BaseActivity, msg, Toast.LENGTH_SHORT).show()
                 }
@@ -60,11 +55,6 @@ abstract class BaseActivity<B : ViewDataBinding, out VM : BaseViewModel>(
         }
 
     }
-
-    fun showProgress() = BaseProgress().show(supportFragmentManager, "PROGRESS")
-
-    fun hideProgress() =
-        supportFragmentManager.fragments.filterIsInstance<BaseProgress>().forEach { it.dismiss() }
 
 
     override fun onDestroy() {

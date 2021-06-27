@@ -7,8 +7,8 @@ import com.mokresh.tidalmusic.albums.model.AlbumsResponseBody
 import com.mokresh.tidalmusic.api.remote.NetworkResponse
 import com.mokresh.tidalmusic.api.remote.NetworkResponseAdapterFactory
 import com.mokresh.tidalmusic.artist.models.ArtistsResponseBody
-import com.mokresh.tidalmusic.model.ErrorBody
-import com.mokresh.tidalmusic.tracks.TracksResponseBody
+import com.mokresh.tidalmusic.base.model.ErrorBody
+import com.mokresh.tidalmusic.tracks.model.TracksResponseBody
 import com.mokresh.tidalmusic.utils.NetworkConnectionInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

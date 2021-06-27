@@ -1,11 +1,11 @@
 package com.mokresh.tidalmusic.di
 
 
-import com.mokresh.tidalmusic.albums.AlbumsViewModel
+import com.mokresh.tidalmusic.albums.data.AlbumsViewModel
 import com.mokresh.tidalmusic.api.ApiServices
 import com.mokresh.tidalmusic.artist.data.ArtistsViewModel
-import com.mokresh.tidalmusic.artist.data.ListsRepository
-import com.mokresh.tidalmusic.tracks.TracksViewModel
+import com.mokresh.tidalmusic.api.ListsRepository
+import com.mokresh.tidalmusic.tracks.data.TracksViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

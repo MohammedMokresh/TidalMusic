@@ -1,4 +1,4 @@
-package com.mokresh.tidalmusic.model
+package com.mokresh.tidalmusic.base.model
 
 
 import com.google.gson.annotations.SerializedName

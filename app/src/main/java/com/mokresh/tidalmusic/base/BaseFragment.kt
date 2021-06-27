@@ -79,10 +79,6 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(viewModel) {
-            observe(progressLiveEvent) { show ->
-                if (show) (activity as BaseActivity<*, *>).showProgress()
-                else (activity as BaseActivity<*, *>).hideProgress()
-            }
 
             observe(errorMessage) { msg ->
                 Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()

@@ -1,4 +1,4 @@
-package com.mokresh.tidalmusic.albums
+package com.mokresh.tidalmusic.albums.data
 
 import android.net.Uri
 import androidx.paging.PagingSource

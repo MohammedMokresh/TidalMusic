@@ -1,14 +1,13 @@
-package com.mokresh.tidalmusic.tracks
+package com.mokresh.tidalmusic.tracks.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.fragment.findNavController
 import com.mokresh.tidalmusic.R
-import com.mokresh.tidalmusic.albums.AlbumsFragmentArgs
 import com.mokresh.tidalmusic.albums.model.AlbumsData
 import com.mokresh.tidalmusic.base.BaseFragment
 import com.mokresh.tidalmusic.databinding.FragmentTracksBinding
-import com.mokresh.tidalmusic.utils.Constants
+import com.mokresh.tidalmusic.tracks.TracksFragmentArgs
+import com.mokresh.tidalmusic.tracks.data.TracksViewModel
 import com.mokresh.tidalmusic.utils.UIEvent
 
 

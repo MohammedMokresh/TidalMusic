@@ -54,41 +54,21 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
                 header = PagingLoadStateAdapter(this),
                 footer = PagingLoadStateAdapter(this)
             )
-            with(viewModel) {
-//                launchOnLifecycleScope {
-//                    artistsFlow?.collectLatest { submitData(it) }
-//                }
-                launchOnLifecycleScope {
-                    loadStateFlow.collectLatest {
-                        binding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
-                    }
+            launchOnLifecycleScope {
+                loadStateFlow.collectLatest {
+                    binding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
                 }
-
             }
 
+//            addLoadStateListener { loadState ->
+//                if (loadState.append.endOfPaginationReached) {
+//                    if (itemCount < 1)
+//                    /// show empty view
+//                    else
+//                    ///  hide empty view
+//                }
+//            }
         }
-//        artistsAdapter.addLoadStateListener { loadState ->
-//
-//
-//            if (loadState.refresh is LoadState.Loading){
-////                progressBar.visibility = View.VISIBLE
-//            }
-//            else{
-////                progressBar.visibility = View.GONE
-//
-//                // getting the error
-//                val error = when {
-//                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-//                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-//                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-//                    else -> null
-//                }
-//                error?.let {
-//                    Toast.makeText(requireContext(), it.error.message, Toast.LENGTH_LONG).show()
-//                }
-//            }
-//        }
-
     }
 
 

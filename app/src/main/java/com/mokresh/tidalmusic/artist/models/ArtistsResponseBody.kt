@@ -2,7 +2,7 @@ package com.mokresh.tidalmusic.artist.models
 
 
 import com.google.gson.annotations.SerializedName
-import com.mokresh.tidalmusic.model.Error
+import com.mokresh.tidalmusic.base.model.Error
 
 data class ArtistsResponseBody(
     @SerializedName("data")

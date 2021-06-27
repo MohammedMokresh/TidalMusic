@@ -1,9 +1,8 @@
-package com.mokresh.tidalmusic.tracks
+package com.mokresh.tidalmusic.tracks.data
 
 import androidx.lifecycle.viewModelScope
-import com.mokresh.tidalmusic.R
 import com.mokresh.tidalmusic.api.remote.NetworkResponse
-import com.mokresh.tidalmusic.artist.data.ListsRepository
+import com.mokresh.tidalmusic.api.ListsRepository
 import com.mokresh.tidalmusic.base.BaseViewModel
 import com.mokresh.tidalmusic.utils.Constants
 import com.mokresh.tidalmusic.utils.UIEvent

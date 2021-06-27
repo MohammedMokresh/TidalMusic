@@ -9,7 +9,7 @@
                 type="com.mokresh.tidalmusic.albums.model.AlbumsData"/>
         <variable
                 name="vm"
-                type="com.mokresh.tidalmusic.tracks.TracksViewModel"/>
+                type="com.mokresh.tidalmusic.tracks.data.TracksViewModel"/>
 
 
     </data>
@@ -110,14 +110,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider"
-                android:layout_height="wrap_content">
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="0dp">
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tracks_RecyclerView"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="8dp"
-                    android:paddingBottom="24dp"
                     android:orientation="vertical"
                     android:nestedScrollingEnabled="false"
                     android:paddingHorizontal="16dp"
