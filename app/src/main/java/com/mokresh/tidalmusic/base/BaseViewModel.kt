@@ -3,10 +3,11 @@ package com.mokresh.tidalmusic.base
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dansdev.libeventpipe.EventPipe
 import com.mokresh.tidalmusic.utils.SingleLiveEvent
+import com.mokresh.tidalmusic.utils.UIEvent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     var progressLiveEvent = SingleLiveEvent<Boolean>()
@@ -24,6 +25,10 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                 errorMessage.value = ex.message
             }
         }
+    }
+
+    fun <T : UIEvent> publishUIEvent(event: T) {
+        EventPipe.send(event)
     }
 
 

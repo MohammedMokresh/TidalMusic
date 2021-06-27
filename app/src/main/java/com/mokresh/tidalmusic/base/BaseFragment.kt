@@ -12,8 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.dansdev.libeventpipe.EventPipe
 import com.mokresh.tidalmusic.ext.observe
 import com.mokresh.tidalmusic.BR
+import com.mokresh.tidalmusic.utils.UIEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 
@@ -26,6 +28,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     private var _binding: B? = null
 
     lateinit var binding: B
+    abstract fun onUIEventTriggered(event: UIEvent)
 
     open val viewModel: VM by viewModel(viewModelClass)
     var isFragmentVisible = false
@@ -34,6 +37,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(viewModel)
+        registerEvent()
     }
 
     init {
@@ -87,8 +91,15 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     }
 
+    fun registerEvent() {
+        EventPipe.registerEvent(UIEvent::class.java) { event ->
+            onUIEventTriggered(event)
+        }
+    }
+
     override fun onDestroy() {
         lifecycle.removeObserver(viewModel)
+        EventPipe.unregisterAllEvents()
         super.onDestroy()
     }
 
@@ -107,6 +118,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         isFragmentVisible = visible
         super.setMenuVisibility(visible)
     }
+
     fun launchOnLifecycleScope(execute: suspend () -> Unit) {
         this.lifecycleScope.launchWhenCreated {
             execute()

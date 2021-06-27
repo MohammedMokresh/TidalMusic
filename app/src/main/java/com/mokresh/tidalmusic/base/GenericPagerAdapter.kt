@@ -6,6 +6,8 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
+import com.dansdev.libeventpipe.EventPipe
+import com.mokresh.tidalmusic.utils.UIEvent
 
 abstract class GenericPagerAdapter<T : Any, B : ViewDataBinding>(
     @LayoutRes val layoutId: Int,
@@ -23,6 +25,10 @@ abstract class GenericPagerAdapter<T : Any, B : ViewDataBinding>(
 
     override fun onBindViewHolder(holder: GenericViewHolder<T, B>, position: Int) {
         holder.bind(getItem(position), vm, position)
+    }
+
+    fun <T : UIEvent> publishUIEvent(event: T) {
+        EventPipe.send(event)
     }
 
 

@@ -7,7 +7,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.dansdev.libeventpipe.EventPipe
 import com.mokresh.tidalmusic.BR
+import com.mokresh.tidalmusic.utils.UIEvent
 
 
 abstract class GenericAdapter<T : Any, B : ViewDataBinding>(
@@ -45,6 +47,9 @@ abstract class GenericAdapter<T : Any, B : ViewDataBinding>(
         diffUtilResult.dispatchUpdatesTo(this)
     }
 
+    fun <T : UIEvent> publishUIEvent(event: T) {
+        EventPipe.send(event)
+    }
 
     fun getItems(): List<T?>? {
         return items
