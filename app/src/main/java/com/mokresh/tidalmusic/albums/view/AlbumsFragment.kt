@@ -24,14 +24,18 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            val query: String = AlbumsFragmentArgs.fromBundle(requireArguments()).query
-            viewModel.getAlbums(query)
+            launchOnLifecycleScope {
+                val query: String = AlbumsFragmentArgs.fromBundle(requireArguments()).query
+                viewModel.getAlbums(query)
+            }
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
+
         initAlbumsRecyclerView()
 
         navController.previousBackStackEntry?.savedStateHandle?.set(Constants.IS_FROM_POP_STACK, true)
@@ -48,6 +52,9 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
                 loadStateFlow.collectLatest {
                     binding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
                 }
+            }
+            launchOnLifecycleScope {
+                viewModel.albumsFlow?.collectLatest { submitData(it) }
             }
             launchOnLifecycleScope {
                 loadStateFlow.map { it.refresh }
@@ -73,15 +80,9 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
             is UIEvent.NavigateToTracks -> {
                 val directions =
                     event.albumsData.let { AlbumsFragmentDirections.actionAlbumsFragmentToTracksFragment(it) }
-                directions?.let { findNavController().navigate(it) }
+                directions.let { findNavController().navigate(it) }
 
             }
-            is UIEvent.RenderAlbumsList -> {
-                launchOnLifecycleScope {
-                    albumsAdapter.submitData(event.albumsData)
-                }
-            }
-
         }
     }
 
