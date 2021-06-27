@@ -1,10 +1,13 @@
 package com.mokresh.tidalmusic.albums
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.mokresh.tidalmusic.R
 import com.mokresh.tidalmusic.albums.model.AlbumsData
+import com.mokresh.tidalmusic.artist.view.ArtistsFragmentDirections
 import com.mokresh.tidalmusic.base.BaseFragment
 import com.mokresh.tidalmusic.base.OnClickListener
 import com.mokresh.tidalmusic.base.PagingLoadStateAdapter
@@ -14,8 +17,8 @@ import kotlinx.coroutines.flow.collectLatest
 
 
 class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
-    (R.layout.fragment_albums, AlbumsViewModel::class), OnClickListener<AlbumsData> {
-    private val albumsAdapter = AlbumsAdapter(this)
+    (R.layout.fragment_albums, AlbumsViewModel::class) {
+    private val albumsAdapter = AlbumsAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,13 +54,17 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
 
     }
 
-    override fun onItemClick(item: AlbumsData) {
-
-
-    }
 
     override fun onUIEventTriggered(event: UIEvent) {
-        TODO("Not yet implemented")
+        when (event) {
+            is UIEvent.NavigateToTracks -> {
+                Log.e("aasd","asdasd")
+                val directions =
+                    event.albumsData.let { AlbumsFragmentDirections.actionAlbumsFragmentToTracksFragment(it) }
+                directions?.let { findNavController().navigate(it) }
+
+            }
+        }
     }
 
 

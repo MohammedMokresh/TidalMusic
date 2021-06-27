@@ -6,7 +6,7 @@ import com.mokresh.tidalmusic.model.Error
 
 data class TracksResponseBody(
     @SerializedName("data")
-    val tracksData: List<TracksData>?,
+    val tracksData: ArrayList<TracksData>?,
     @SerializedName("total")
     val total: Int?,
     @SerializedName("error")

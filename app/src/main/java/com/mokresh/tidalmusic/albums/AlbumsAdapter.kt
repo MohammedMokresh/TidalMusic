@@ -3,9 +3,14 @@ package com.mokresh.tidalmusic.albums
 import com.mokresh.tidalmusic.R
 import com.mokresh.tidalmusic.albums.model.AlbumsData
 import com.mokresh.tidalmusic.base.GenericPagerAdapter
-import com.mokresh.tidalmusic.base.OnClickListener
 import com.mokresh.tidalmusic.databinding.ItemAlbumBinding
+import com.mokresh.tidalmusic.utils.UIEvent
 
-class AlbumsAdapter(onClickListener: OnClickListener<AlbumsData>) :
-    GenericPagerAdapter<AlbumsData, ItemAlbumBinding>(layoutId = R.layout.item_album, clickListener = onClickListener)
+class AlbumsAdapter : GenericPagerAdapter<AlbumsData, ItemAlbumBinding>(layoutId = R.layout.item_album) {
+
+    override fun onItemClick(item: AlbumsData) {
+        super.onItemClick(item)
+        publishUIEvent(UIEvent.NavigateToTracks(item))
+    }
+}
 

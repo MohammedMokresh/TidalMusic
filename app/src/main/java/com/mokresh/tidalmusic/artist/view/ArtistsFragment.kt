@@ -6,9 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.mokresh.tidalmusic.R
 import com.mokresh.tidalmusic.artist.data.ArtistsViewModel
-import com.mokresh.tidalmusic.artist.models.ArtistsData
 import com.mokresh.tidalmusic.base.BaseFragment
-import com.mokresh.tidalmusic.base.OnClickListener
 import com.mokresh.tidalmusic.base.PagingLoadStateAdapter
 import com.mokresh.tidalmusic.databinding.FragmentArtistsBinding
 import com.mokresh.tidalmusic.utils.DebouncingQueryTextListener
@@ -17,9 +15,9 @@ import kotlinx.coroutines.flow.collectLatest
 
 
 class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
-    (R.layout.fragment_artists, ArtistsViewModel::class), OnClickListener<ArtistsData> {
+    (R.layout.fragment_artists, ArtistsViewModel::class) {
 
-    private val artistsAdapter = ArtistsAdapter(this)
+    private val artistsAdapter = ArtistsAdapter()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,13 +82,14 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
 
     }
 
-    override fun onItemClick(item: ArtistsData) {
-        val directions = item.name?.let { ArtistsFragmentDirections.actionArtistsFragmentToAlbumsFragment(it) }
-        directions?.let { findNavController().navigate(it) }
-
-    }
 
     override fun onUIEventTriggered(event: UIEvent) {
-        TODO("Not yet implemented")
+        when (event) {
+            is UIEvent.NavigateToAlbums -> {
+                val directions = event.artistsData.name?.let { ArtistsFragmentDirections.actionArtistsFragmentToAlbumsFragment(it) }
+                directions?.let { findNavController().navigate(it) }
+
+            }
+        }
     }
 }

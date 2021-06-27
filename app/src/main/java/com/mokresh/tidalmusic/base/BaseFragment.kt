@@ -37,7 +37,6 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(viewModel)
-        registerEvent()
     }
 
     init {
@@ -112,6 +111,8 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onResume() {
         super.onResume()
         isFragmentPaused = false
+        registerEvent()
+
     }
 
     override fun setMenuVisibility(visible: Boolean) {

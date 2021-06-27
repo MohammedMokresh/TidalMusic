@@ -52,6 +52,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:paddingHorizontal="16dp"
                     android:clipToPadding="false"
+                    android:paddingBottom="24dp"
                     tools:listitem="@layout/item_artist"
                     tools:itemCount="20"/>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -54,6 +54,7 @@
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     android:clipToPadding="false"
                     tools:listitem="@layout/item_album"
+                    android:paddingBottom="24dp"
                     tools:itemCount="20"/>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

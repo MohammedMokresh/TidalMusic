@@ -2,7 +2,5 @@
     <string name="app_name">TidalMusic</string>
     <string name="retry">Retry</string>
     <string name="artists">Artists</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="albums">Albums</string>
 </resources>

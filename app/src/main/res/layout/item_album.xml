@@ -6,12 +6,17 @@
         <variable
                 name="item"
                 type="com.mokresh.tidalmusic.albums.model.AlbumsData"/>
+        <variable
+                name="clickListener"
+                type="com.mokresh.tidalmusic.base.OnClickListener"/>
+
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_margin="8dp"
+            android:onClick="@{()->clickListener.onItemClick(item)}"
             android:layout_height="260dp">
 
 

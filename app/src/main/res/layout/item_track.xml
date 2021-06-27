@@ -13,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
+            android:layout_marginEnd="16dp"
             android:layout_height="wrap_content">
 
         <TextView
@@ -23,6 +24,7 @@
                 android:padding="16dp"
                 android:id="@+id/position_TextView"
                 android:layout_width="wrap_content"
+                android:text="@{item.trackPosition.toString()}"
                 android:layout_height="wrap_content"
                 android:textColor="@color/grey"
                 android:textSize="14sp"
@@ -37,8 +39,6 @@
                 android:text="@{item.titleShort}"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:ellipsize="end"
-                android:maxLines="1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/position_TextView"
                 android:textColor="@color/white"
@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{item.artist.name}"
                 android:textSize="14sp"
+                android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/album_title_TextView"
                 android:textColor="@color/grey"
