@@ -4,7 +4,10 @@ package com.mokresh.tidalmusic.api
 import android.content.Context
 import com.mokresh.tidalmusic.BuildConfig
 import com.mokresh.tidalmusic.albums.model.AlbumsResponseBody
+import com.mokresh.tidalmusic.api.remote.NetworkResponse
+import com.mokresh.tidalmusic.api.remote.NetworkResponseAdapterFactory
 import com.mokresh.tidalmusic.artist.models.ArtistsResponseBody
+import com.mokresh.tidalmusic.model.ErrorBody
 import com.mokresh.tidalmusic.utils.NetworkConnectionInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,6 +15,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
@@ -24,6 +28,8 @@ interface ApiServices {
     @GET("search/album")
     suspend fun getAlbums(@Query("q") query: String, @Query("index") index: Int): Response<AlbumsResponseBody>
 
+    @GET("album/{id}/tracks")
+    suspend fun getTracks(@Path("id") id: Int): NetworkResponse<AlbumsResponseBody, ErrorBody>
 
     companion object {
 
@@ -39,6 +45,7 @@ interface ApiServices {
 
 
             return Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(okHttpClient.build())
+                .addCallAdapterFactory(NetworkResponseAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiServices::class.java)

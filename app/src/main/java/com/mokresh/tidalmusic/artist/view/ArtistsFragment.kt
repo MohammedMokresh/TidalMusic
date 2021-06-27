@@ -1,7 +1,9 @@
 package com.mokresh.tidalmusic.artist.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.mokresh.tidalmusic.R
@@ -19,7 +21,7 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
     (R.layout.fragment_artists, ArtistsViewModel::class), OnClickListener<ArtistsData> {
 
     private val artistsAdapter = ArtistsAdapter(this)
-    var query: String = ""
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +31,6 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
             ) { newText ->
                 newText?.let {
                     if (newText.isNotEmpty()) {
-                        query = newText
                         newText.let { viewModel.getArtists(it) }
                         initArtistsRecyclerView()
 
@@ -37,6 +38,15 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
                 }
             }
         )
+
+        viewModel.progressLiveEvent.observe(this, Observer {
+            Log.e("progres",it.toString())
+        })
+
+        viewModel.errorMessage.observe(this, Observer {
+            Log.e("progres",it.toString())
+        })
+
 
     }
 
@@ -62,12 +72,11 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
 
         }
 
-
     }
 
     override fun onItemClick(item: ArtistsData) {
-        val directions = ArtistsFragmentDirections.actionArtistsFragmentToAlbumsFragment(query = query)
-        findNavController().navigate(directions)
+        val directions = item.name?.let { ArtistsFragmentDirections.actionArtistsFragmentToAlbumsFragment(it) }
+        directions?.let { findNavController().navigate(it) }
 
     }
 }
