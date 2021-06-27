@@ -38,6 +38,8 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(viewModel)
+        registerEvent()
+        viewModel.isDataEmpty.set(false)
     }
 
     init {

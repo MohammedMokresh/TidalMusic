@@ -1,7 +1,6 @@
 package com.mokresh.tidalmusic.artist.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState

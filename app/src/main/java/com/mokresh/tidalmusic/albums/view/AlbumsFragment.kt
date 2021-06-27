@@ -20,14 +20,11 @@ import kotlinx.coroutines.flow.map
 class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
     (R.layout.fragment_albums, AlbumsViewModel::class) {
     private val albumsAdapter = AlbumsAdapter()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            launchOnLifecycleScope {
-                val query: String = AlbumsFragmentArgs.fromBundle(requireArguments()).query
-                viewModel.getAlbums(query)
-            }
+            val query: String = AlbumsFragmentArgs.fromBundle(requireArguments()).query
+            viewModel.getAlbums(query)
         }
 
     }
@@ -37,7 +34,6 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
         val navController = findNavController()
 
         initAlbumsRecyclerView()
-
         navController.previousBackStackEntry?.savedStateHandle?.set(Constants.IS_FROM_POP_STACK, true)
     }
 
@@ -50,11 +46,9 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
             )
             launchOnLifecycleScope {
                 loadStateFlow.collectLatest {
+                    viewModel.isDataEmpty.set(false)
                     binding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
                 }
-            }
-            launchOnLifecycleScope {
-                viewModel.albumsFlow?.collectLatest { submitData(it) }
             }
             launchOnLifecycleScope {
                 loadStateFlow.map { it.refresh }
@@ -82,6 +76,11 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
                     event.albumsData.let { AlbumsFragmentDirections.actionAlbumsFragmentToTracksFragment(it) }
                 directions.let { findNavController().navigate(it) }
 
+            }
+            is UIEvent.RenderAlbumsList -> {
+                launchOnLifecycleScope {
+                    albumsAdapter.submitData(event.albumsData)
+                }
             }
         }
     }

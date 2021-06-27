@@ -1,14 +1,9 @@
 package com.mokresh.tidalmusic.artist.data
 
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.mokresh.tidalmusic.albums.model.AlbumsData
 import com.mokresh.tidalmusic.api.ListsRepository
-import com.mokresh.tidalmusic.artist.models.ArtistsData
 import com.mokresh.tidalmusic.base.BaseViewModel
 import com.mokresh.tidalmusic.utils.UIEvent
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
