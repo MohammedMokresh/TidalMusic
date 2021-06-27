@@ -12,6 +12,7 @@ import com.mokresh.tidalmusic.base.BaseFragment
 import com.mokresh.tidalmusic.base.OnClickListener
 import com.mokresh.tidalmusic.base.PagingLoadStateAdapter
 import com.mokresh.tidalmusic.databinding.FragmentAlbumsBinding
+import com.mokresh.tidalmusic.utils.Constants
 import com.mokresh.tidalmusic.utils.UIEvent
 import kotlinx.coroutines.flow.collectLatest
 
@@ -20,15 +21,20 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
     (R.layout.fragment_albums, AlbumsViewModel::class) {
     private val albumsAdapter = AlbumsAdapter()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         if (arguments != null) {
             val query: String = AlbumsFragmentArgs.fromBundle(requireArguments()).query
             viewModel.getAlbums(query)
-            initAlbumsRecyclerView()
-
         }
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val navController = findNavController()
+        initAlbumsRecyclerView()
+
+        navController.previousBackStackEntry?.savedStateHandle?.set(Constants.IS_FROM_POP_STACK, true)
     }
 
     private fun initAlbumsRecyclerView() {
@@ -54,11 +60,9 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
 
     }
 
-
     override fun onUIEventTriggered(event: UIEvent) {
         when (event) {
             is UIEvent.NavigateToTracks -> {
-                Log.e("aasd","asdasd")
                 val directions =
                     event.albumsData.let { AlbumsFragmentDirections.actionAlbumsFragmentToTracksFragment(it) }
                 directions?.let { findNavController().navigate(it) }

@@ -31,5 +31,8 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         EventPipe.send(event)
     }
 
+    fun onBackPressed() {
+        publishUIEvent(UIEvent.OnBackPressed)
+    }
 
 }

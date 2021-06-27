@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.dansdev.libeventpipe.EventPipe
 import com.mokresh.tidalmusic.ext.observe
 import com.mokresh.tidalmusic.BR
@@ -90,15 +91,26 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     }
 
-    fun registerEvent() {
+    private fun onBackButtonPressed() {
+        val navController = findNavController()
+        navController.popBackStack()
+    }
+
+    private fun registerEvent() {
         EventPipe.registerEvent(UIEvent::class.java) { event ->
-            onUIEventTriggered(event)
+            when (event) {
+                is UIEvent.OnBackPressed -> {
+                    onBackButtonPressed()
+                }
+                else -> {
+                    onUIEventTriggered(event)
+                }
+            }
         }
     }
 
     override fun onDestroy() {
         lifecycle.removeObserver(viewModel)
-        EventPipe.unregisterAllEvents()
         super.onDestroy()
     }
 

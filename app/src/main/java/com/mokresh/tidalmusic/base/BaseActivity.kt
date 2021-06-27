@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.dansdev.libeventpipe.EventPipe
 import com.mokresh.tidalmusic.BR
 import com.mokresh.tidalmusic.ext.observe
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -70,6 +71,7 @@ abstract class BaseActivity<B : ViewDataBinding, out VM : BaseViewModel>(
         lifecycle.removeObserver(viewModel)
         binding.unbind()
         _binding?.unbind()
+        EventPipe.unregisterAllEvents()
         super.onDestroy()
     }
 

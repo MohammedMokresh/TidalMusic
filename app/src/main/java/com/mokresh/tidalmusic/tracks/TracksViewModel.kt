@@ -17,7 +17,6 @@ class TracksViewModel(
 
     fun getTracks(id: Int) {
 
-//        if (Utils.isNetworkAvailable(context)) {
         viewModelScope.launch {
             listsRepository.getTracks(id).collect {
                 when (it) {
@@ -29,9 +28,6 @@ class TracksViewModel(
                 }
             }
         }
-//        } else {
-//            publishUIEvent(ShowNoNetworkConnectivity)
-//        }
     }
 
 

@@ -7,6 +7,10 @@
         <variable
                 name="album"
                 type="com.mokresh.tidalmusic.albums.model.AlbumsData"/>
+        <variable
+                name="vm"
+                type="com.mokresh.tidalmusic.tracks.TracksViewModel"/>
+
 
     </data>
 
@@ -22,6 +26,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
+                android:onClick="@{()-> vm.onBackPressed()}"
                 android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
                 android:background="#00FFFFFF"
