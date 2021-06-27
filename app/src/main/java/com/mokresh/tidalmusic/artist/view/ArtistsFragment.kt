@@ -9,6 +9,7 @@ import com.mokresh.tidalmusic.artist.data.ArtistsViewModel
 import com.mokresh.tidalmusic.base.BaseFragment
 import com.mokresh.tidalmusic.base.PagingLoadStateAdapter
 import com.mokresh.tidalmusic.databinding.FragmentArtistsBinding
+import com.mokresh.tidalmusic.utils.AppUtil
 import com.mokresh.tidalmusic.utils.Constants.IS_FROM_POP_STACK
 import com.mokresh.tidalmusic.utils.DebouncingQueryTextListener
 import com.mokresh.tidalmusic.utils.UIEvent
@@ -36,14 +37,13 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
                     if (newText.isNotEmpty()) {
                         if (!isFromPopStack) {
                             newText.let { viewModel.getArtists(it) }
-                            initArtistsRecyclerView()
                         }
                         isFromPopStack = false
                     }
                 }
             }
         )
-
+        initArtistsRecyclerView()
 
     }
 
@@ -95,6 +95,7 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
     override fun onUIEventTriggered(event: UIEvent) {
         when (event) {
             is UIEvent.NavigateToAlbums -> {
+                AppUtil.hideKeyboard(requireActivity())
                 val directions =
                     event.artistsData.name?.let { ArtistsFragmentDirections.actionArtistsFragmentToAlbumsFragment(it) }
                 directions?.let { findNavController().navigate(it) }

@@ -21,13 +21,18 @@ class TracksFragment : BaseFragment<FragmentTracksBinding, TracksViewModel>
             val album: AlbumsData = TracksFragmentArgs.fromBundle(requireArguments()).album
             binding.album = album
             album.id?.toInt()?.let { viewModel.getTracks(it) }
+            binding.swipeRefresh.setOnRefreshListener { album.id?.toInt()?.let { viewModel.getTracks(it) } }
+
         }
+
+
     }
 
     override fun onUIEventTriggered(event: UIEvent) {
         when (event) {
             is UIEvent.RenderTracksList -> {
                 binding.tracksRecyclerView.adapter = event.tracksData?.let { TrackAdapter(it) }
+                binding.swipeRefresh.isRefreshing = false
             }
         }
     }
