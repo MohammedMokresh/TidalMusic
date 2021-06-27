@@ -14,7 +14,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.dansdev.libeventpipe.EventPipe
-import com.mokresh.tidalmusic.ext.observe
+import com.mokresh.tidalmusic.utils.observe
 import com.mokresh.tidalmusic.BR
 import com.mokresh.tidalmusic.utils.UIEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel

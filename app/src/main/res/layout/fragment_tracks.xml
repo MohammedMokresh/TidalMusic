@@ -103,6 +103,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
         />
 
+        <TextView
+                android:id="@+id/empty_state_TexTView"
+                android:textColor="@color/grey"
+                android:text="@string/seems_that_this_album_doesn_t_has_tracks_please_check_another_album"
+                android:gravity="start"
+                android:textSize="22sp"
+                android:layout_width="0dp"
+                android:textStyle="bold"
+                android:layout_margin="16dp"
+                visibility="@{vm.isDataEmpty()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content"/>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_refresh"
@@ -110,6 +125,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider"
+                visibility="@{!vm.isDataEmpty()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_height="0dp">
 

@@ -1,5 +1,6 @@
 package com.mokresh.tidalmusic.utils
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -17,6 +18,11 @@ fun ImageView.loadCircleImage(url: String?) {
         .load(url)
         .circleCrop()
         .into(this);
+}
+
+@BindingAdapter("visibility")
+fun setViewVisibility(view: View?, bool: Boolean) {
+    if (view != null) view.visibility = if (bool) View.VISIBLE else View.GONE
 }
 
 

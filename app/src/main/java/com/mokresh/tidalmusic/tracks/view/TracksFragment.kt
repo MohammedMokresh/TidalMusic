@@ -6,7 +6,6 @@ import com.mokresh.tidalmusic.R
 import com.mokresh.tidalmusic.albums.model.AlbumsData
 import com.mokresh.tidalmusic.base.BaseFragment
 import com.mokresh.tidalmusic.databinding.FragmentTracksBinding
-import com.mokresh.tidalmusic.tracks.TracksFragmentArgs
 import com.mokresh.tidalmusic.tracks.data.TracksViewModel
 import com.mokresh.tidalmusic.utils.UIEvent
 
@@ -30,6 +29,11 @@ class TracksFragment : BaseFragment<FragmentTracksBinding, TracksViewModel>
     override fun onUIEventTriggered(event: UIEvent) {
         when (event) {
             is UIEvent.RenderTracksList -> {
+                if (event.tracksData?.size == 0) {
+                    viewModel.isDataEmpty.set(true)
+                } else {
+                    viewModel.isDataEmpty.set(false)
+                }
                 binding.tracksRecyclerView.adapter = event.tracksData?.let { TrackAdapter(it) }
                 binding.swipeRefresh.isRefreshing = false
             }

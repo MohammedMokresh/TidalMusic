@@ -10,11 +10,15 @@ import kotlinx.coroutines.launch
 class ArtistsViewModel(
     private val listsRepository: ListsRepository,
 ) : BaseViewModel() {
-
     fun getArtists(query: String) {
         viewModelScope.launch {
-            listsRepository.getArtists(query).collectLatest { publishUIEvent(UIEvent.RenderArtistsList(it)) }
+            listsRepository.getArtists(query).collectLatest {
+                try {
+                    publishUIEvent(UIEvent.RenderArtistsList(it))
+                } catch (ex: Exception) {
+                    errorMessage.value = ex.message
+                }
+            }
         }
     }
-
 }

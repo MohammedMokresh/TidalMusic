@@ -18,9 +18,14 @@ class AlbumsViewModel(
 
     fun getAlbums(query: String) {
         viewModelScope.launch {
-            listsRepository.getAlbums(query).collectLatest { publishUIEvent(UIEvent.RenderAlbumsList(it)) }
+            listsRepository.getAlbums(query).collectLatest {
+                try {
+                    publishUIEvent(UIEvent.RenderAlbumsList(it))
+                } catch (ex: Exception) {
+                    errorMessage.value = ex.message
+                }
+            }
         }
     }
-
 
 }

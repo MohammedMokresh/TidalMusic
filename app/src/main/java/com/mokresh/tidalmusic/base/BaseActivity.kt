@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.dansdev.libeventpipe.EventPipe
 import com.mokresh.tidalmusic.BR
-import com.mokresh.tidalmusic.ext.observe
+import com.mokresh.tidalmusic.utils.observe
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 

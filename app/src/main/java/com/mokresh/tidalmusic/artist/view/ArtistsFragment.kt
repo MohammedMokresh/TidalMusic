@@ -13,7 +13,10 @@ import com.mokresh.tidalmusic.utils.AppUtil
 import com.mokresh.tidalmusic.utils.Constants.IS_FROM_POP_STACK
 import com.mokresh.tidalmusic.utils.DebouncingQueryTextListener
 import com.mokresh.tidalmusic.utils.UIEvent
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 
 
 class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
@@ -21,6 +24,7 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
 
     private val artistsAdapter = ArtistsAdapter()
     private var isFromPopStack = false
+    private var checkForEmptyState = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,6 +40,7 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
                 newText?.let {
                     if (newText.isNotEmpty()) {
                         if (!isFromPopStack) {
+                            checkForEmptyState = true
                             newText.let { viewModel.getArtists(it) }
                         }
                         isFromPopStack = false
@@ -60,15 +65,24 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
                 }
             }
 
-//            addLoadStateListener { loadState ->
-//                if (loadState.append.endOfPaginationReached) {
-//                    if (itemCount < 1)
-//                    /// show empty view
-//                    else
-//                    ///  hide empty view
-//                }
-//            }
+            launchOnLifecycleScope {
+                loadStateFlow.map { it.refresh }
+                    .distinctUntilChanged().collect {
+                        if (it is LoadState.NotLoading) {
+                            if (checkForEmptyState)
+                                if (itemCount == 0) {
+                                    viewModel.isDataEmpty.set(true)
+                                } else {
+                                    viewModel.isDataEmpty.set(false)
+                                }
+                        }
+                    }
+
+            }
+
         }
+
+
     }
 
 

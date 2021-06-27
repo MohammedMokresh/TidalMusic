@@ -3,4 +3,13 @@
     <string name="retry">Retry</string>
     <string name="artists">Artists</string>
     <string name="albums">Albums</string>
+    <string name="seems_like_there_is_no_artist_with_this_name_please_search_for_another_name">Seems like there is no
+        artist with this name , please search for another name
+    </string>
+    <string name="seems_like_there_are_no_albums_for_this_artist_please_choose_another_artist">Seems like there are no
+        Albums for this artist , please choose another artist
+    </string>
+    <string name="seems_that_this_album_doesn_t_has_tracks_please_check_another_album">Seems that this album doesn\'t
+        has tracks , please check another album
+    </string>
 </resources>

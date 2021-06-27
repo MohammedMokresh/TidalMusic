@@ -5,15 +5,16 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.mokresh.tidalmusic.R
-import com.mokresh.tidalmusic.albums.AlbumsFragmentArgs
-import com.mokresh.tidalmusic.albums.AlbumsFragmentDirections
 import com.mokresh.tidalmusic.albums.data.AlbumsViewModel
 import com.mokresh.tidalmusic.base.BaseFragment
 import com.mokresh.tidalmusic.base.PagingLoadStateAdapter
 import com.mokresh.tidalmusic.databinding.FragmentAlbumsBinding
 import com.mokresh.tidalmusic.utils.Constants
 import com.mokresh.tidalmusic.utils.UIEvent
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 
 
 class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
@@ -48,6 +49,20 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
                     binding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
                 }
             }
+            launchOnLifecycleScope {
+                loadStateFlow.map { it.refresh }
+                    .distinctUntilChanged().collect {
+                        if (it is LoadState.NotLoading) {
+                            if (itemCount == 0) {
+                                viewModel.isDataEmpty.set(true)
+                            } else {
+                                viewModel.isDataEmpty.set(false)
+                            }
+                        }
+                    }
+
+            }
+
         }
 
 
