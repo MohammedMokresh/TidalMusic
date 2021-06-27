@@ -8,6 +8,7 @@ import com.mokresh.tidalmusic.api.remote.NetworkResponse
 import com.mokresh.tidalmusic.api.remote.NetworkResponseAdapterFactory
 import com.mokresh.tidalmusic.artist.models.ArtistsResponseBody
 import com.mokresh.tidalmusic.model.ErrorBody
+import com.mokresh.tidalmusic.tracks.TracksResponseBody
 import com.mokresh.tidalmusic.utils.NetworkConnectionInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,7 +30,7 @@ interface ApiServices {
     suspend fun getAlbums(@Query("q") query: String, @Query("index") index: Int): Response<AlbumsResponseBody>
 
     @GET("album/{id}/tracks")
-    suspend fun getTracks(@Path("id") id: Int): NetworkResponse<AlbumsResponseBody, ErrorBody>
+    suspend fun getTracks(@Path("id") id: Int): NetworkResponse<TracksResponseBody, ErrorBody>
 
     companion object {
 

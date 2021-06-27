@@ -33,7 +33,7 @@ class ListsRepository(
     ).flow
 
 
-    suspend fun getTracks(id: Int): Flow<NetworkResponse<AlbumsResponseBody, ErrorBody>> {
+    suspend fun getTracks(id: Int): Flow<NetworkResponse<TracksResponseBody, ErrorBody>> {
         return flow {
             emit(service.getTracks(id = id))
         }.flowOn(Dispatchers.IO)

@@ -3,6 +3,7 @@ package com.mokresh.tidalmusic.artist.view
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -39,13 +40,6 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
             }
         )
 
-        viewModel.progressLiveEvent.observe(this, Observer {
-            Log.e("progres",it.toString())
-        })
-
-        viewModel.errorMessage.observe(this, Observer {
-            Log.e("progres",it.toString())
-        })
 
 
     }
@@ -71,6 +65,27 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
 
 
         }
+//        artistsAdapter.addLoadStateListener { loadState ->
+//
+//
+//            if (loadState.refresh is LoadState.Loading){
+////                progressBar.visibility = View.VISIBLE
+//            }
+//            else{
+////                progressBar.visibility = View.GONE
+//
+//                // getting the error
+//                val error = when {
+//                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+//                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+//                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+//                    else -> null
+//                }
+//                error?.let {
+//                    Toast.makeText(requireContext(), it.error.message, Toast.LENGTH_LONG).show()
+//                }
+//            }
+//        }
 
     }
 

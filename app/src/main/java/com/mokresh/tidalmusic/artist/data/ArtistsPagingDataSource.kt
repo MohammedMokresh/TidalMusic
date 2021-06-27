@@ -15,6 +15,11 @@ class ArtistsPagingDataSource(private val service: ApiServices, private val quer
             val pagedResponse = response.body()
             val data = pagedResponse?.artistsData
 
+
+            if (pagedResponse?.error != null) {
+              return  LoadResult.Error(Throwable(pagedResponse.error.message))
+            }
+
             var nextPageNumber: Int? = null
             if (!pagedResponse?.next.isNullOrEmpty()) {
                 val uri = Uri.parse(pagedResponse?.next)
