@@ -9,6 +9,7 @@ import com.mokresh.tidalmusic.base.BaseFragment
 import com.mokresh.tidalmusic.base.OnClickListener
 import com.mokresh.tidalmusic.base.PagingLoadStateAdapter
 import com.mokresh.tidalmusic.databinding.FragmentAlbumsBinding
+import com.mokresh.tidalmusic.utils.UIEvent
 import kotlinx.coroutines.flow.collectLatest
 
 
@@ -53,6 +54,10 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
     override fun onItemClick(item: AlbumsData) {
 
 
+    }
+
+    override fun onUIEventTriggered(event: UIEvent) {
+        TODO("Not yet implemented")
     }
 
 

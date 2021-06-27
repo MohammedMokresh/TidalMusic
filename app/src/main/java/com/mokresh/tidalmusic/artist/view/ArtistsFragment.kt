@@ -1,10 +1,7 @@
 package com.mokresh.tidalmusic.artist.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.mokresh.tidalmusic.R
@@ -15,6 +12,7 @@ import com.mokresh.tidalmusic.base.OnClickListener
 import com.mokresh.tidalmusic.base.PagingLoadStateAdapter
 import com.mokresh.tidalmusic.databinding.FragmentArtistsBinding
 import com.mokresh.tidalmusic.utils.DebouncingQueryTextListener
+import com.mokresh.tidalmusic.utils.UIEvent
 import kotlinx.coroutines.flow.collectLatest
 
 
@@ -39,9 +37,6 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
                 }
             }
         )
-
-
-
     }
 
     private fun initArtistsRecyclerView() {
@@ -93,5 +88,9 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
         val directions = item.name?.let { ArtistsFragmentDirections.actionArtistsFragmentToAlbumsFragment(it) }
         directions?.let { findNavController().navigate(it) }
 
+    }
+
+    override fun onUIEventTriggered(event: UIEvent) {
+        TODO("Not yet implemented")
     }
 }
