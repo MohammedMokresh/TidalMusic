@@ -23,11 +23,11 @@ import java.util.concurrent.TimeUnit
 interface ApiServices {
 
     @GET("search/artist")
-    suspend fun getArtist(@Query("q") query: String, @Query("index") index: Int): Response<ArtistsResponseBody>
+    suspend fun getArtist(@Query("q") query: String, @Query("index") index: Int): NetworkResponse<ArtistsResponseBody,ErrorBody>
 
 
     @GET("search/album")
-    suspend fun getAlbums(@Query("q") query: String, @Query("index") index: Int): Response<AlbumsResponseBody>
+    suspend fun getAlbums(@Query("q") query: String, @Query("index") index: Int): NetworkResponse<AlbumsResponseBody,ErrorBody>
 
     @GET("album/{id}/tracks")
     suspend fun getTracks(@Path("id") id: Int): NetworkResponse<TracksResponseBody, ErrorBody>

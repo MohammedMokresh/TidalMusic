@@ -5,6 +5,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.mokresh.tidalmusic.albums.model.AlbumsData
 import com.mokresh.tidalmusic.api.ApiServices
+import com.mokresh.tidalmusic.api.remote.NetworkResponse
+import com.mokresh.tidalmusic.utils.Constants
 
 class AlbumsPagingDataSource(private val service: ApiServices, private val query: String) :
     PagingSource<Int, AlbumsData>() {
@@ -12,21 +14,29 @@ class AlbumsPagingDataSource(private val service: ApiServices, private val query
         val pageNumber = params.key ?: 1
         return try {
             val response = service.getAlbums(query, pageNumber)
-            val pagedResponse = response.body()
-            val data = pagedResponse?.albumsData
+            when (response) {
+                is NetworkResponse.Success -> {
+                    val pagedResponse = response.body
+                    val data = pagedResponse.albumsData
+                    var nextPageNumber: Int? = null
+                    if (!pagedResponse.next.isNullOrEmpty()) {
+                        val uri = Uri.parse(pagedResponse.next)
+                        val nextPageQuery = uri.getQueryParameter("index")
+                        nextPageNumber = nextPageQuery?.toInt()
+                    }
+                    return LoadResult.Page(
+                        data = data.orEmpty(),
+                        prevKey = null,
+                        nextKey = nextPageNumber
+                    )
 
-            var nextPageNumber: Int? = null
-            if (!pagedResponse?.next.isNullOrEmpty()) {
-                val uri = Uri.parse(pagedResponse?.next)
-                val nextPageQuery = uri.getQueryParameter("index")
-                nextPageNumber = nextPageQuery?.toInt()
+                }
+                is NetworkResponse.ApiError -> return LoadResult.Error(Throwable(response.body.error?.message))
+                is NetworkResponse.NetworkError -> return LoadResult.Error(Throwable(Constants.GENERAL_ERROR_MESSAGE))
+                is NetworkResponse.UnknownError -> return LoadResult.Error(Throwable(Constants.GENERAL_ERROR_MESSAGE))
             }
 
-            LoadResult.Page(
-                data = data.orEmpty(),
-                prevKey = null,
-                nextKey = nextPageNumber
-            )
+
         } catch (e: Exception) {
             LoadResult.Error(e)
         }

@@ -61,6 +61,15 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
             )
             launchOnLifecycleScope {
                 loadStateFlow.collectLatest {
+                    val error = when {
+                        it.prepend is LoadState.Error -> it.prepend as LoadState.Error
+                        it.append is LoadState.Error -> it.append as LoadState.Error
+                        it.refresh is LoadState.Error -> it.refresh as LoadState.Error
+                        else -> null
+                    }
+                    if (!error?.error?.message.isNullOrEmpty())
+                        viewModel.errorMessage.value = error?.error?.message
+
                     binding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
                 }
             }
@@ -79,7 +88,6 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
                     }
 
             }
-
         }
 
 

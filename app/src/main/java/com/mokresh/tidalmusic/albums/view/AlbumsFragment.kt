@@ -2,6 +2,7 @@ package com.mokresh.tidalmusic.albums.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.mokresh.tidalmusic.R
@@ -47,8 +48,18 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
             launchOnLifecycleScope {
                 loadStateFlow.collectLatest {
                     viewModel.isDataEmpty.set(false)
+                    val error = when {
+                        it.prepend is LoadState.Error -> it.prepend as LoadState.Error
+                        it.append is LoadState.Error -> it.append as LoadState.Error
+                        it.refresh is LoadState.Error -> it.refresh as LoadState.Error
+                        else -> null
+                    }
+                    if (!error?.error?.message.isNullOrEmpty())
+                        viewModel.errorMessage.value = error?.error?.message
+
                     binding.swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
                 }
+
             }
             launchOnLifecycleScope {
                 loadStateFlow.map { it.refresh }
