@@ -2,18 +2,23 @@ package com.mokresh.tidalmusic.albums.model
 
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.mokresh.tidalmusic.artist.models.ArtistsData
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = "album")
 data class AlbumsData(
-    @SerializedName("artist")
+    @Embedded @SerializedName("artist")
     val artist: ArtistsData?,
-    @SerializedName("cover_medium")
+    @ColumnInfo(name = "coverMedium") @SerializedName("cover_medium")
     val coverMedium: String?,
-    @SerializedName("id")
-    val id: String?,
-    @SerializedName("title")
+    @PrimaryKey @ColumnInfo(name = "id_album") @SerializedName("id")
+    val id: String,
+    @ColumnInfo(name = "title") @SerializedName("title")
     val title: String?,
 ) : Parcelable

@@ -9,7 +9,8 @@ class AppKoinModules {
             return mutableListOf(
                 viewModelModule,
                 repositoryModule,
-                serviceModule
+                serviceModule,
+                cacheModule
             )
         }
     }

@@ -2,21 +2,22 @@ package com.mokresh.tidalmusic.artist.models
 
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ArtistsData(
-    @SerializedName("id")
+    @ColumnInfo(name = "id_artist")  @SerializedName("id")
     val id: String,
 
-    @SerializedName("name")
+    @ColumnInfo(name = "name_artist")  @SerializedName("name")
     val name: String?,
 
-    @SerializedName("picture")
+    @ColumnInfo(name = "picture_artist") @SerializedName("picture")
     val picture: String?,
 
-    @SerializedName("type")
+    @ColumnInfo(name = "type_artist") @SerializedName("type")
     val type: String?,
 
     ) : Parcelable
