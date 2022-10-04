@@ -1,18 +1,22 @@
 package com.mokresh.tidalmusic.albums.data
 
 import androidx.lifecycle.viewModelScope
+import com.mokresh.tidalmusic.albums.model.AlbumsData
 import com.mokresh.tidalmusic.api.ListsRepository
 import com.mokresh.tidalmusic.base.BaseViewModel
+import com.mokresh.tidalmusic.db.FavouriteAlbumsDAO
 import com.mokresh.tidalmusic.utils.UIEvent
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class AlbumsViewModel(
     private val listsRepository: ListsRepository,
+    private val favouriteAlbumsDAO: FavouriteAlbumsDAO
 
-    ) : BaseViewModel() {
+) : BaseViewModel() {
 
-     fun getAlbums(query: String) {
+    fun getAlbums(query: String) {
         viewModelScope.launch {
             listsRepository.getAlbums(query).collectLatest {
                 try {
@@ -25,4 +29,15 @@ class AlbumsViewModel(
     }
 
 
+    fun insertFavourite(album: AlbumsData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            favouriteAlbumsDAO.insertFavouriteAlbum(album)
+        }
+    }
+
+    fun deleteFavourite(albumId: String?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            favouriteAlbumsDAO.deleteAlbum(albumId)
+        }
+    }
 }

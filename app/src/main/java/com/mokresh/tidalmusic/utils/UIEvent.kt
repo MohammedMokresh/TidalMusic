@@ -18,6 +18,8 @@ abstract class UIEvent {
 
     data class RenderAlbumsList(val albumsData: PagingData<AlbumsData>) : UIEvent()
 
+    data class UpdateIsFavouriteAlbum(val albumsData: AlbumsData,val isFavourite:Boolean) : UIEvent()
+
     object OnBackPressed : UIEvent()
 
 

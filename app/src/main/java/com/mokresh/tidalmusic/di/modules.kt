@@ -32,7 +32,7 @@ val repositoryModule by lazy {
 val viewModelModule by lazy {
     module {
         viewModel { ArtistsViewModel(get()) }
-        viewModel { AlbumsViewModel(get()) }
+        viewModel { AlbumsViewModel(get(), get()) }
         viewModel { TracksViewModel(get()) }
 
     }

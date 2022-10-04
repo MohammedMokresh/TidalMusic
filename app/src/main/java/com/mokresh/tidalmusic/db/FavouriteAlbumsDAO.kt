@@ -2,18 +2,19 @@ package com.mokresh.tidalmusic.db
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.mokresh.tidalmusic.albums.model.AlbumsData
 
 @Dao
 interface FavouriteAlbumsDAO {
-    @Query("SELECT * FROM album ORDER BY id DESC")
+    @Query("SELECT * FROM album")
     fun getAllFavouritesAlbums(): List<AlbumsData>
 
-    @Insert
-    fun insertAlbumIntoFavourites(albumsData: AlbumsData)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertFavouriteAlbum(albums: AlbumsData)
 
-    @Query("DELETE  FROM album WHERE id=:albumId")
+    @Query("DELETE  FROM album WHERE id_album=:albumId")
     fun deleteAlbum(albumId: String?)
 
 }

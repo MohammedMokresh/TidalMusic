@@ -2,7 +2,6 @@ package com.mokresh.tidalmusic.albums.view
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.mokresh.tidalmusic.R
@@ -35,7 +34,10 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
         val navController = findNavController()
 
         initAlbumsRecyclerView()
-        navController.previousBackStackEntry?.savedStateHandle?.set(Constants.IS_FROM_POP_STACK, true)
+        navController.previousBackStackEntry?.savedStateHandle?.set(
+            Constants.IS_FROM_POP_STACK,
+            true
+        )
     }
 
     private fun initAlbumsRecyclerView() {
@@ -84,13 +86,25 @@ class AlbumsFragment : BaseFragment<FragmentAlbumsBinding, AlbumsViewModel>
         when (event) {
             is UIEvent.NavigateToTracks -> {
                 val directions =
-                    event.albumsData.let { AlbumsFragmentDirections.actionAlbumsFragmentToTracksFragment(it) }
+                    event.albumsData.let {
+                        AlbumsFragmentDirections.actionAlbumsFragmentToTracksFragment(
+                            it
+                        )
+                    }
                 directions.let { findNavController().navigate(it) }
 
             }
             is UIEvent.RenderAlbumsList -> {
                 launchOnLifecycleScope {
                     albumsAdapter.submitData(event.albumsData)
+                }
+            }
+
+            is UIEvent.UpdateIsFavouriteAlbum -> {
+                if (event.isFavourite) {
+                    viewModel.insertFavourite(event.albumsData)
+                } else {
+                    viewModel.deleteFavourite(event.albumsData.id)
                 }
             }
         }
