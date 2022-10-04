@@ -1,5 +1,6 @@
 package com.mokresh.tidalmusic.albums.data
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mokresh.tidalmusic.albums.model.AlbumsData
 import com.mokresh.tidalmusic.api.ListsRepository
@@ -15,6 +16,7 @@ class AlbumsViewModel(
     private val favouriteAlbumsDAO: FavouriteAlbumsDAO
 
 ) : BaseViewModel() {
+    val favouriteAlbums = MutableLiveData<List<AlbumsData>>()
 
     fun getAlbums(query: String) {
         viewModelScope.launch {
@@ -28,6 +30,11 @@ class AlbumsViewModel(
         }
     }
 
+    fun getFavourites() {
+        viewModelScope.launch(Dispatchers.IO) {
+            favouriteAlbums.postValue(favouriteAlbumsDAO.getAllFavouritesAlbums())
+        }
+    }
 
     fun insertFavourite(album: AlbumsData) {
         viewModelScope.launch(Dispatchers.IO) {

@@ -8,7 +8,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dansdev.libeventpipe.EventPipe
-import com.mokresh.tidalmusic.BR
 import com.mokresh.tidalmusic.utils.UIEvent
 
 

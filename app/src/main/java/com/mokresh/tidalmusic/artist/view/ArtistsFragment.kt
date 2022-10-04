@@ -9,6 +9,7 @@ import com.mokresh.tidalmusic.artist.data.ArtistsViewModel
 import com.mokresh.tidalmusic.base.BaseFragment
 import com.mokresh.tidalmusic.base.PagingLoadStateAdapter
 import com.mokresh.tidalmusic.databinding.FragmentArtistsBinding
+import com.mokresh.tidalmusic.favourites.FavouritesFragmentDirections
 import com.mokresh.tidalmusic.utils.AppUtil
 import com.mokresh.tidalmusic.utils.Constants.IS_FROM_POP_STACK
 import com.mokresh.tidalmusic.utils.DebouncingQueryTextListener
@@ -29,7 +30,9 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(IS_FROM_POP_STACK)?.observe(
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
+            IS_FROM_POP_STACK
+        )?.observe(
             viewLifecycleOwner
         ) { result -> isFromPopStack = result }
 
@@ -48,6 +51,13 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
                 }
             }
         )
+        binding.fab.setOnClickListener {
+            val directions =
+                ArtistsFragmentDirections.actionArtistsFragmentToFavouritesFragment()
+
+            directions.let { findNavController().navigate(it) }
+        }
+
         initArtistsRecyclerView()
 
     }
@@ -99,7 +109,11 @@ class ArtistsFragment : BaseFragment<FragmentArtistsBinding, ArtistsViewModel>
             is UIEvent.NavigateToAlbums -> {
                 AppUtil.hideKeyboard(requireActivity())
                 val directions =
-                    event.artistsData.name?.let { ArtistsFragmentDirections.actionArtistsFragmentToAlbumsFragment(it) }
+                    event.artistsData.name?.let {
+                        ArtistsFragmentDirections.actionArtistsFragmentToAlbumsFragment(
+                            it
+                        )
+                    }
                 directions?.let { findNavController().navigate(it) }
 
             }

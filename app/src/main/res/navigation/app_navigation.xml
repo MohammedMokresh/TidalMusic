@@ -16,6 +16,9 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_artistsFragment_to_favouritesFragment"
+            app:destination="@id/favouritesFragment" />
     </fragment>
     <fragment
             android:id="@+id/albumsFragment"
@@ -49,5 +52,13 @@
         <argument
                 android:name="album"
                 app:argType="com.mokresh.tidalmusic.albums.model.AlbumsData"/>
+    </fragment>
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.mokresh.tidalmusic.favourites.FavouritesFragment"
+        android:label="FavouritesFragment" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_tracksFragment"
+            app:destination="@id/tracksFragment" />
     </fragment>
 </navigation>
