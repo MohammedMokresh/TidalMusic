@@ -5,10 +5,8 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.mokresh.tidalmusic.R
 import com.mokresh.tidalmusic.albums.data.AlbumsViewModel
-import com.mokresh.tidalmusic.albums.view.AlbumsFragmentDirections
 import com.mokresh.tidalmusic.base.BaseFragment
 import com.mokresh.tidalmusic.databinding.FragmentFavouritesBinding
-import com.mokresh.tidalmusic.tracks.view.TrackAdapter
 import com.mokresh.tidalmusic.utils.Constants
 import com.mokresh.tidalmusic.utils.UIEvent
 
@@ -49,7 +47,7 @@ class FavouritesFragment : BaseFragment<FragmentFavouritesBinding, AlbumsViewMod
             is UIEvent.NavigateToTracks -> {
                 val directions =
                     event.albumsData.let {
-                        AlbumsFragmentDirections.actionAlbumsFragmentToTracksFragment(
+                        FavouritesFragmentDirections.actionFavouritesFragmentToTracksFragment(
                             it
                         )
                     }
